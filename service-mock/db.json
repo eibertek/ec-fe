@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": 100,
+      "username": "eibermanm",
+      "password": "fuckyou",
+      "name": "Mariano",
+      "lastName": "Eiberman",
+      "status": "ACTIVE"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "expenses",
+      "description": "Regular Expenses",
+      "currency": "pesos"
+    }
+  ],
+  "expenses": [
+    {
+      "id": 1,
+      "name": "Gastos",
+      "categoryId": 1,
+      "value": 1000,
+      "date": "29/06/2017 14:20:00"
+    },
+    {
+      "name": "Gastos 2",
+      "categoryId": 1,
+      "value": 1600,
+      "date": "29/06/2017 14:20:00",
+      "id": 2
+    }
+  ]
+}
