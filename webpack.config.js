@@ -1,7 +1,7 @@
 var path = require("path");
 module.exports = {
   entry: {
-    app: ["./main.js"]
+    app: ["./main.js", "./styles.scss"]
   },
   output: {
     path: path.resolve(__dirname, "build"),
@@ -12,7 +12,11 @@ module.exports = {
       {
         test : /\.js?/,
         loader : 'babel-loader'
-      }
+      },
+      {
+        test : /\.scss?/,
+        loader : 'style-loader!css-loader!sass-loader'
+      }      
     ]
   }
 };

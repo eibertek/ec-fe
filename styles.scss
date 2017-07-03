@@ -1,0 +1,27 @@
+BODY {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+
+    h1 {
+        text-align: center;
+    }
+}
+
+.error-message {
+        color:red;
+    }
+
+.users-container {
+    position:absolute;
+    right:20px;
+    div > input {
+        margin: 5px 10px;
+        float:left;
+        font-size:20px;
+    }
+
+    div > button {
+        float:right;
+    }
+
+}
