@@ -12,7 +12,7 @@ export class Categories extends React.Component {
 
     gotoAction() {
         if(this.props.action===NEW_CATEGORY) {
-            return this.newCategory();
+            return this.newCategoryForm();
         }
         if(this.props.action===EDIT_CATEGORY) {
             return this.editCategory();
@@ -26,11 +26,23 @@ export class Categories extends React.Component {
         return this.viewCategories();
     }
 
-    newCategory() {
-        return <form>
-            <input name="ctg_name" />
-            <input name="ctg_description" />
-            <input name="ctg_currency" />
+    newCategoryForm() {
+        return this.renderForm(<input type="submit" onSubmit={this.newCategory} value="Guardar" />);
+    }
+
+    newCategory(e) {
+        console.log('aaaa', e);
+        e.preventDefault();
+    }
+    renderForm(action) {
+        return <form className="newCategory">
+           <div className="background"> 
+            <h2> Nueva Categoria </h2>  
+           <label htmlFor="ctg_name">Nombre:</label><input type="text" name="ctg_name" />
+            <label htmlFor="ctg_description">Descripcion:</label><input type="text" name="ctg_description" />
+            <label htmlFor="ctg_currency">Moneda:</label><input type="text" name="ctg_currency" />
+            {action}
+            </div>
         </form>
     }
 
