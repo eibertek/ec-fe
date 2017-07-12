@@ -1,19 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ExpensesComponent from './components/expenses';
-import UserComponent from './components/users';
-
-class RootComponent extends React.Component {
-    render(){
-        return <div>
-            <UserComponent />
-            <ExpensesComponent></ExpensesComponent>
-        </div>;
-    }
-}
+import AppComponent from './components/AppComponent';
 
 export const setReactDom = (containerId) => {
-       ReactDOM.render(<RootComponent />, document.getElementById(containerId));
+       ReactDOM.render(<AppComponent />, document.getElementById(containerId));
 }
 
-setReactDom('hello');
+setReactDom('app');
