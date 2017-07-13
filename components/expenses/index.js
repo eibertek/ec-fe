@@ -7,6 +7,7 @@ class ExpensesComponent extends React.Component {
         super(props);
         this.renderCategory = this.renderCategory.bind(this);
         this.renderModal = this.renderModal.bind(this);
+        this.dismiss = this.dismiss.bind(this);
         this.state = {
             MODAL: ''
         }
@@ -16,9 +17,12 @@ class ExpensesComponent extends React.Component {
 
     }
 
+    dismiss() {
+        this.setState({MODAL:''});
+    }
     renderModal() {
         if(this.state.MODAL === 'Categories') {
-            return <Categories action={this.state.action} />
+            return <Categories action={this.state.action} dismiss={this.dismiss}/>
         }
         return null;
     }

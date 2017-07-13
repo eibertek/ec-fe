@@ -8,6 +8,13 @@ export class Categories extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            ctg_name:'',
+            ctg_description:'',
+            ctg_currency:''
+        }
+        this.newCategory = this.newCategory.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     gotoAction() {
@@ -26,21 +33,31 @@ export class Categories extends React.Component {
         return this.viewCategories();
     }
 
+    componentWillUpdate() {
+//        this.setState({showModal:true});   
+    }
+
     newCategoryForm() {
-        return this.renderForm(<input type="submit" onSubmit={this.newCategory} value="Guardar" />);
+        return this.renderForm(<input type="submit"  value="Guardar" />, this.newCategory);
     }
 
     newCategory(e) {
-        console.log('aaaa', e);
         e.preventDefault();
+        this.props.dismiss();
+        console.log('Data', this.state);
     }
-    renderForm(action) {
-        return <form className="newCategory">
+
+    handleChange(e){
+        this.setState({[e.target.name]:e.target.value});
+    }
+
+    renderForm(action, onSubmit) {
+        return <form className="newCategory" onSubmit={onSubmit}>
            <div className="background"> 
             <h2> Nueva Categoria </h2>  
-           <label htmlFor="ctg_name">Nombre:</label><input type="text" name="ctg_name" />
-            <label htmlFor="ctg_description">Descripcion:</label><input type="text" name="ctg_description" />
-            <label htmlFor="ctg_currency">Moneda:</label><input type="text" name="ctg_currency" />
+           <label htmlFor="ctg_name">Nombre:</label><input type="text" name="ctg_name" onChange={this.handleChange} value={this.state.ctg_name} />
+            <label htmlFor="ctg_description">Descripcion:</label><input type="text" name="ctg_description" onChange={this.handleChange} value={this.state.ctg_description} />
+            <label htmlFor="ctg_currency">Moneda:</label><input type="text" name="ctg_currency" onChange={this.handleChange} value={this.state.ctg_currency} />
             {action}
             </div>
         </form>
