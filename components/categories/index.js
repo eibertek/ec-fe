@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {categoriesModel} from '../../models/categories';
+import {getCategories} from '../../actions/categories';
+
 export const NEW_CATEGORY = 'NEW';
 export const EDIT_CATEGORY = 'EDIT';
 export const DELETE_CATEGORY = 'DELETE';
@@ -38,13 +42,16 @@ export class Categories extends React.Component {
     }
 
     newCategoryForm() {
+        this.props.getCategories();
         return this.renderForm(<input type="submit"  value="Guardar" />, this.newCategory);
     }
 
     newCategory(e) {
         e.preventDefault();
         this.props.dismiss();
-        console.log('Data', this.state);
+        const {ctg_name, ctg_description, ctg_currency} = this.state
+        const catModel = new categoriesModel (ctg_name, ctg_description, ctg_currency);        
+        console.log('Data', catModel, catModel.load('aaaa'));
     }
 
     handleChange(e){
@@ -75,3 +82,13 @@ export class Categories extends React.Component {
         return <div>{this.gotoAction()}</div>;
     }
 }
+
+export default connect(()=>{
+    return {}
+}, dispatch =>{
+    return {
+        getCategories: () => {
+            dispatch(getCategories())
+        }
+    }
+})(Categories);

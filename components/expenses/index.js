@@ -1,5 +1,6 @@
 import React from 'react';
-import {NEW_CATEGORY, EDIT_CATEGORY, DELETE_CATEGORY, Categories}  from '../categories';
+import {NEW_CATEGORY, EDIT_CATEGORY, DELETE_CATEGORY}  from '../categories';
+import Categories  from '../categories';
 import { BrowserRouter as Router, Route } from 'react-router'
 
 class ExpensesComponent extends React.Component {
