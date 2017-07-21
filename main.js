@@ -7,7 +7,7 @@ import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-const store = createStore(reducers, {}, applyMiddleware(logger,thunk));
+const store = createStore(reducers, {categories:[]}, applyMiddleware(logger,thunk));
 
 export const setReactDom = (containerId) => {
        ReactDOM.render(<Provider store={store}><AppComponent /></Provider>, document.getElementById(containerId));

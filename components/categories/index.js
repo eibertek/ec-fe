@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {categoriesModel} from '../../models/categories';
-import {getCategories} from '../../actions/categories';
+import * as categoriesActions from '../../actions/categories';
 
 export const NEW_CATEGORY = 'NEW';
 export const EDIT_CATEGORY = 'EDIT';
@@ -42,7 +43,8 @@ export class Categories extends React.Component {
     }
 
     newCategoryForm() {
-        this.props.getCategories();
+        console.log('wwwhaaaaattt',this.props);
+        this.props.loadCategories();
         return this.renderForm(<input type="submit"  value="Guardar" />, this.newCategory);
     }
 
@@ -83,12 +85,11 @@ export class Categories extends React.Component {
     }
 }
 
-export default connect(()=>{
+export default connect(state=>{
     return {}
 }, dispatch =>{
+    const actions = bindActionCreators(categoriesActions, dispatch);
     return {
-        getCategories: () => {
-            dispatch(getCategories())
-        }
+        loadCategories: actions.getCategories
     }
 })(Categories);
