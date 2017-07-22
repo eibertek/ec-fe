@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {categoriesModel} from '../../models/categories';
 import * as categoriesActions from '../../actions/categories';
 
 export const NEW_CATEGORY = 'NEW';
@@ -20,6 +19,7 @@ export class Categories extends React.Component {
         }
         this.newCategory = this.newCategory.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.props.loadCategories();
     }
 
     gotoAction() {
@@ -38,22 +38,32 @@ export class Categories extends React.Component {
         return this.viewCategories();
     }
 
-    componentWillUpdate() {
-//        this.setState({showModal:true});   
-    }
+    componentWillUpdate() { }
 
     newCategoryForm() {
-        console.log('wwwhaaaaattt',this.props);
-        this.props.loadCategories();
         return this.renderForm(<input type="submit"  value="Guardar" />, this.newCategory);
     }
 
     newCategory(e) {
         e.preventDefault();
-        this.props.dismiss();
-        const {ctg_name, ctg_description, ctg_currency} = this.state
-        const catModel = new categoriesModel (ctg_name, ctg_description, ctg_currency);        
-        console.log('Data', catModel, catModel.load('aaaa'));
+        const {ctg_name, ctg_description, ctg_currency} = this.state;
+        let error = [];
+        if(ctg_name === '' ) {
+            this.setState({'error':'Category Have to have a name'});
+            error.push('CategoryEmpty');
+        }
+        Object.values(this.props.categories).forEach( (category) => {
+            if(ctg_name === category.name){
+                    this.setState({'error':'Category already exist'});
+                    error.push('CategoryAlreadyExist');
+                    return 'error1';
+            } 
+        });
+        if(error.length>0) {
+           return false;
+        }
+        this.props.saveCategory(this.state);
+        this.props.dismiss();        
     }
 
     handleChange(e){
@@ -68,6 +78,7 @@ export class Categories extends React.Component {
             <label htmlFor="ctg_description">Descripcion:</label><input type="text" name="ctg_description" onChange={this.handleChange} value={this.state.ctg_description} />
             <label htmlFor="ctg_currency">Moneda:</label><input type="text" name="ctg_currency" onChange={this.handleChange} value={this.state.ctg_currency} />
             {action}
+            {this.state.error}
             </div>
         </form>
     }
@@ -85,11 +96,18 @@ export class Categories extends React.Component {
     }
 }
 
-export default connect(state=>{
-    return {}
-}, dispatch =>{
-    const actions = bindActionCreators(categoriesActions, dispatch);
+const mapStateToProps = state=>{
+    console.log(state);
     return {
-        loadCategories: actions.getCategories
+        categories: state.categories
     }
-})(Categories);
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadCategories: () => dispatch(categoriesActions.getCategories()),
+    saveCategory: (data) => dispatch(categoriesActions.saveCategory(data)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Categories);

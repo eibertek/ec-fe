@@ -15,6 +15,30 @@
       "name": "expenses",
       "description": "Regular Expenses",
       "currency": "pesos"
+    },
+    {
+      "id": 2,
+      "name": "expenses2",
+      "description": "Regular Expenses",
+      "currency": "pesos"
+    },
+    {
+      "name": "expenses3",
+      "description": "",
+      "currency": "$",
+      "id": 3
+    },
+    {
+      "name": "expenses4",
+      "description": "",
+      "currency": "$",
+      "id": 4
+    },
+    {
+      "name": "expenses5",
+      "description": "",
+      "currency": "$",
+      "id": 5
     }
   ],
   "expenses": [
