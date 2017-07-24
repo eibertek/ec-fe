@@ -23,22 +23,16 @@
       "currency": "pesos"
     },
     {
-      "name": "expenses3",
-      "description": "",
+      "name": "gastos",
+      "description": "gastos mensuales",
       "currency": "$",
-      "id": 3
+      "id": 6
     },
     {
-      "name": "expenses4",
-      "description": "",
+      "name": "Credits",
+      "description": "Credits and cards",
       "currency": "$",
-      "id": 4
-    },
-    {
-      "name": "expenses5",
-      "description": "",
-      "currency": "$",
-      "id": 5
+      "id": 7
     }
   ],
   "expenses": [

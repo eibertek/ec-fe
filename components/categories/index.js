@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import * as categoriesActions from '../../actions/categories';
 
 export const NEW_CATEGORY = 'NEW';
@@ -97,9 +96,8 @@ export class Categories extends React.Component {
 }
 
 const mapStateToProps = state=>{
-    console.log(state);
     return {
-        categories: state.categories
+        categories: state.categories.categories
     }
 }
 
