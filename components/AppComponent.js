@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ExpensesComponent from './expenses';
+import Categories from './categories';
 import UserComponent from './users';
+import ModalComponent from './ModalComponent';
 import "../styles.scss";
 class AppComponent extends React.Component {
 
@@ -19,11 +21,16 @@ class AppComponent extends React.Component {
                 logTime:0,
                 actualTime: new Date().getTime()                
             },
-            errors:[]            
+            errors:[],
+            modal: {
+                render:false,
+                component:<div></div>
+            }            
         }
         this.tick = this.tick.bind(this);
         this.login = this.login.bind(this);
         this.getErrors = this.getErrors.bind(this);
+        this.onClose = this.onClose.bind(this);
     }
 
     componentWillMount(){
@@ -94,12 +101,34 @@ class AppComponent extends React.Component {
         });
         return returnValue.length > 0 ? <div className="error-message">Errores:{returnValue}</div>: '';
     }
-    render(){
+
+    showModal(e, component, props) {
+        const composeComponent = React.createElement(component, props);
+        this.setState({modal:{ render:true, component:composeComponent}});
+    }
+
+    onClose() {
+          this.setState({modal:{ render:false, component:null}});
+    }
+
+    loggedIn(){
         return <div>
-            <UserComponent login={this.login} userData={this.state.userData} />
-            {this.getErrors()}
-            <ExpensesComponent userData={this.state.userData}></ExpensesComponent>
+            <div> 
+                <button onClick={(e) => this.showModal(e, ExpensesComponent, {action:'NEW', dismiss:this.onClose})} >NEW Expenses</button>
+                <button onClick={(e) => this.showModal(e, Categories, {action:'NEW', dismiss:this.onClose})} >New Category</button>
+            </div>
+            <ModalComponent render={this.state.modal.render} onClose={this.onClose}>{this.state.modal.component}</ModalComponent>
         </div>;
+    }
+    render(){
+        if(this.state.userData.login){
+            return this.loggedIn();
+        }else{
+            return <div>
+                <UserComponent login={this.login} userData={this.state.userData} />
+                {this.getErrors()}
+            </div>;
+        }
     }
 }
 

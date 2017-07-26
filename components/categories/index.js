@@ -37,8 +37,6 @@ export class Categories extends React.Component {
         return this.viewCategories();
     }
 
-    componentWillUpdate() { }
-
     newCategoryForm() {
         return this.renderForm(<input type="submit"  value="Guardar" />, this.newCategory);
     }
@@ -70,15 +68,13 @@ export class Categories extends React.Component {
     }
 
     renderForm(action, onSubmit) {
-        return <form className="newCategory" onSubmit={onSubmit}>
-           <div className="background"> 
+        return <form className="newForm" onSubmit={onSubmit}>
             <h2> Nueva Categoria </h2>  
            <label htmlFor="ctg_name">Nombre:</label><input type="text" name="ctg_name" onChange={this.handleChange} value={this.state.ctg_name} />
             <label htmlFor="ctg_description">Descripcion:</label><input type="text" name="ctg_description" onChange={this.handleChange} value={this.state.ctg_description} />
             <label htmlFor="ctg_currency">Moneda:</label><input type="text" name="ctg_currency" onChange={this.handleChange} value={this.state.ctg_currency} />
             {action}
             {this.state.error}
-            </div>
         </form>
     }
 

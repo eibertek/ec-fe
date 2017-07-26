@@ -33,6 +33,18 @@
       "description": "Credits and cards",
       "currency": "$",
       "id": 7
+    },
+    {
+      "name": "MIRAVOS",
+      "description": "12121",
+      "currency": "$",
+      "id": 8
+    },
+    {
+      "name": "AAA",
+      "description": "323232",
+      "currency": "$",
+      "id": 9
     }
   ],
   "expenses": [
