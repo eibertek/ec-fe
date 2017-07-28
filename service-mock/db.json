@@ -45,6 +45,78 @@
       "description": "323232",
       "currency": "$",
       "id": 9
+    },
+    {
+      "name": "deudas",
+      "description": "estas son deudas impagas",
+      "currency": "$",
+      "id": 10
+    },
+    {
+      "name": "23132131231",
+      "description": "AAAAAAAAA",
+      "currency": "$",
+      "id": 11
+    },
+    {
+      "name": "qqqqqqqqqqqq",
+      "description": "sssadsada",
+      "currency": "$",
+      "id": 12
+    },
+    {
+      "name": "qqqqqqqqqqqqq",
+      "description": "11111111111",
+      "currency": "$",
+      "id": 13
+    },
+    {
+      "name": "3213123",
+      "description": "111111111111111",
+      "currency": "$",
+      "id": 14
+    },
+    {
+      "name": "zzzzzzzzz",
+      "description": "sdasdasda",
+      "currency": "$",
+      "id": 15
+    },
+    {
+      "name": "FGHBBB",
+      "description": "21312312312",
+      "currency": "$",
+      "id": 16
+    },
+    {
+      "name": "asdaff",
+      "description": "rewreewrwe",
+      "currency": "$",
+      "id": 17
+    },
+    {
+      "name": "3424342234324",
+      "description": "AA221213",
+      "currency": "$",
+      "id": 18
+    },
+    {
+      "name": "MARIANO1111111111",
+      "description": "sdsdadas",
+      "currency": "$",
+      "id": 19
+    },
+    {
+      "name": "MARIANO2222222222",
+      "description": "fhgfjssttrsx",
+      "currency": "$",
+      "id": 20
+    },
+    {
+      "name": "JORGE1",
+      "description": "sadklasjdasoip",
+      "currency": "$",
+      "id": 21
     }
   ],
   "expenses": [
@@ -61,6 +133,54 @@
       "value": 1600,
       "date": "29/06/2017 14:20:00",
       "id": 2
+    },
+    {
+      "name": "Gastos 3",
+      "value": "2000",
+      "date": "2017-07-27T03:00:00.000Z",
+      "id": 3
+    },
+    {
+      "name": "Gastos2",
+      "value": "2340",
+      "date": "2017-07-28T02:18:16.080Z",
+      "id": 4
+    },
+    {
+      "name": "gastso 5",
+      "value": "2000",
+      "date": "2017-07-29T03:00:00.000Z",
+      "id": 5
+    },
+    {
+      "name": "gastos 6",
+      "value": "12233",
+      "date": "2017-07-27T03:00:00.000Z",
+      "id": 6
+    },
+    {
+      "name": "otro gato",
+      "value": "12121",
+      "date": "2017-07-28T03:00:00.000Z",
+      "id": 7
+    },
+    {
+      "name": "2323123213",
+      "value": "23",
+      "date": "2017-07-28T03:00:00.000Z",
+      "id": 8
+    },
+    {
+      "name": "otros",
+      "value": "999999",
+      "date": "2017-07-28T02:40:26.425Z",
+      "id": 9
+    },
+    {
+      "name": "otro mas",
+      "value": "888",
+      "date": "2017-07-28T02:41:05.572Z",
+      "id": 10
     }
   ]
 }

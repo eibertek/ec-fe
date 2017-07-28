@@ -18,7 +18,6 @@ export class Categories extends React.Component {
         }
         this.newCategory = this.newCategory.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.props.loadCategories();
     }
 
     gotoAction() {
@@ -60,7 +59,8 @@ export class Categories extends React.Component {
            return false;
         }
         this.props.saveCategory(this.state);
-        this.props.dismiss();        
+        this.props.dismiss(); 
+        this.props.loadCategories();  
     }
 
     handleChange(e){
@@ -92,14 +92,11 @@ export class Categories extends React.Component {
 }
 
 const mapStateToProps = state=>{
-    return {
-        categories: state.categories.categories
-    }
+    return {}
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadCategories: () => dispatch(categoriesActions.getCategories()),
     saveCategory: (data) => dispatch(categoriesActions.saveCategory(data)),
   }
 }

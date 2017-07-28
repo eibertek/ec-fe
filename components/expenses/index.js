@@ -2,8 +2,10 @@ import React from 'react';
 import * as expensesActions from '../../actions/expenses';
 import {getCategories} from '../../actions/categories';
 import { connect } from 'react-redux';
-import { DateField, Calendar } from 'react-date-picker'
-import 'react-date-picker/index.css'
+import DatePicker  from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 export const NEW_EXPENSE = 'NEW';
 export const EDIT_EXPENSE = 'EDIT';
@@ -23,8 +25,8 @@ class ExpensesComponent extends React.Component {
         this.newExpense = this.newExpense.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.renderCategoriesDropdown = this.renderCategoriesDropdown.bind(this);
         this.props.loadCategories();
-        this.props.loadExpenses();        
     }
 
     gotoAction() {
@@ -38,29 +40,37 @@ class ExpensesComponent extends React.Component {
     }
 
     newExpenseForm() {
-        return this.renderForm(<input type="submit"  value="Guardar" />, this.newCategory);
+        return this.renderForm(<input type="submit"  value="Guardar" />, this.newExpense);
+    }
+
+    renderCategoriesDropdown() {
+        if(!this.props.categories) return null;
+        const catDropDown = Object.values(this.props.categories).map((cat)=>{
+                return <option key={cat.id} value={cat.id}>{cat.name}</option>
+        });
+        return <select name="exp_categoryId" onChange={this.handleChange} value={this.state.exp_categoryId}>{catDropDown}</select>;
     }
 
     newExpense(e) {
         e.preventDefault();
-        const {ctg_name, ctg_description, ctg_currency} = this.state;
+        const {exp_name, exp_categoryId, exp_value, exp_date} = this.state;
         let error = [];
-        if(ctg_name === '' ) {
-            this.setState({'error':'Category Have to have a name'});
+        if(exp_name === '' ) {
+            this.setState({'error':'Expense Have to have a name'});
             error.push('CategoryEmpty');
         }
-        Object.values(this.props.categories).forEach( (category) => {
-            if(ctg_name === category.name){
-                    this.setState({'error':'Category already exist'});
-                    error.push('CategoryAlreadyExist');
+        Object.values(this.props.expenses).forEach( (expense) => {
+            if(exp_name === expense.name){
+                    this.setState({'error':'Expense already exist'});
+                    error.push('ExpenseAlreadyExist');
                     return 'error1';
             } 
         });
         if(error.length>0) {
            return false;
         }
-        this.props.saveCategory(this.state);
-        this.props.dismiss();        
+        this.props.saveExpenses(this.state);
+        this.props.dismiss();       
     }
 
     handleChange(e){
@@ -75,28 +85,18 @@ class ExpensesComponent extends React.Component {
         return <form className="newForm" onSubmit={onSubmit}>
             <h2> Nueva Categoria </h2>  
            <label htmlFor="exp_name">Nombre:</label><input type="text" name="exp_name" onChange={this.handleChange} value={this.state.exp_name} />
-            <label htmlFor="exp_categoryId">Descripcion:</label><input type="text" name="exp_categoryId" onChange={this.handleChange} value={this.state.exp_categoryId} />
+            <label htmlFor="exp_categoryId">Categoria:</label>
+            {this.renderCategoriesDropdown()}
             <label htmlFor="exp_value">Valor:</label><input type="text" name="exp_value" onChange={this.handleChange} value={this.state.exp_value} />
             <label htmlFor="exp_date">Fecha:</label>
-            <Calendar
-                    dateFormat="YYYY-MM-DD"
-                    date={this.state.exp_date}
-                    onChange={this.handleDateChange}
-                    />
+            <DatePicker
+                selected={this.state.exp_date}
+                onChange={this.handleDateChange}
+            />
             {action}
             {this.state.error}
         </form>
     }
-
-    renderExpenses() {
-        if(this.props.expenses) {
-            let expenses = this.props.expenses.map( (expense) =>{
-                return <div key={expense.id}>{expense.name} - {expense.value}</div>
-            });
-            return <div>{expenses}</div>;
-        }
-        return <div>EXPENSES LOADING</div>;
-    }    
 
     render() {
       return <div>{this.gotoAction()}</div>;
@@ -106,14 +106,12 @@ class ExpensesComponent extends React.Component {
 const mapStateToProps = state=>{
     return {
         categories: state.categories.categories,
-        expenses: state.expenses.expenses,
+        expenses: state.expenses.expenses,        
     }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadExpenses: () => dispatch(expensesActions.getExpenses()),
-    loadCategories: () => dispatch(getCategories()),
     saveExpenses: (data) => dispatch(expensesActions.saveExpenses(data)),
   }
 }

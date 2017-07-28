@@ -5,6 +5,10 @@ import ExpensesComponent from './expenses';
 import Categories from './categories';
 import UserComponent from './users';
 import ModalComponent from './ModalComponent';
+import * as expensesActions from '../actions/expenses';
+import {getCategories} from '../actions/categories';
+import { connect } from 'react-redux';
+
 import "../styles.scss";
 class AppComponent extends React.Component {
 
@@ -31,6 +35,9 @@ class AppComponent extends React.Component {
         this.login = this.login.bind(this);
         this.getErrors = this.getErrors.bind(this);
         this.onClose = this.onClose.bind(this);
+        this.renderExpenses = this.renderExpenses.bind(this);
+        this.props.loadExpenses();
+        this.props.loadCategories();
     }
 
     componentWillMount(){
@@ -108,16 +115,44 @@ class AppComponent extends React.Component {
     }
 
     onClose() {
-          this.setState({modal:{ render:false, component:null}});
+        this.setState({modal:{ render:false, component:null}});
+        this.props.loadExpenses();
+        this.forceUpdate();
     }
+
+    renderExpenses() {
+        if(this.props.expenses) {
+            let expenses = this.props.expenses.map( (expense) =>{
+                return <div key={expense.id}>{expense.name} - {expense.value}</div>
+            });
+            return <div>{expenses}</div>;
+        }
+        return <div>EXPENSES LOADING</div>;
+    }  
 
     loggedIn(){
         return <div>
             <div> 
-                <button onClick={(e) => this.showModal(e, ExpensesComponent, {action:'NEW', dismiss:this.onClose})} >NEW Expenses</button>
-                <button onClick={(e) => this.showModal(e, Categories, {action:'NEW', dismiss:this.onClose})} >New Category</button>
+                <button onClick={(e) => this.showModal(e, ExpensesComponent, 
+                                        {action:'NEW', 
+                                         dismiss:this.onClose, 
+                                         categories:this.props.categories, 
+                                         expenses: this.props.expenses,
+                                         loadExpenses: this.props.loadExpenses,
+                                         loadCategories: this.props.loadCategories
+                                         })
+                                } >NEW Expenses</button>
+                <button onClick={(e) => this.showModal(e, Categories, 
+                                        {action:'NEW', 
+                                        dismiss:this.onClose,
+                                        categories:this.props.categories,
+                                        loadCategories: this.props.loadCategories
+                                        })
+                                } >New Category</button>
             </div>
             <ModalComponent render={this.state.modal.render} onClose={this.onClose}>{this.state.modal.component}</ModalComponent>
+            <div>EXPENSES</div>
+            <div>{this.renderExpenses()}</div>
         </div>;
     }
     render(){
@@ -134,4 +169,18 @@ class AppComponent extends React.Component {
 
 AppComponent.propTypes = {}
 
-export default AppComponent;
+const mapStateToProps = state=>{
+    return {
+        categories: state.categories.categories,
+        expenses: state.expenses.expenses,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadExpenses: () => dispatch(expensesActions.getExpenses()),
+    loadCategories: () => dispatch(getCategories()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppComponent);

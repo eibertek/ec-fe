@@ -13,6 +13,7 @@
     "babel-preset-react": "^6.24.1",
     "jest": "^20.0.4",
     "loglevel": "^1.4.1",
+    "moment": "^2.18.1",
     "react": "^15.6.1",
     "react-date-picker": "^5.3.28",
     "react-datepicker": "^0.52.0",
