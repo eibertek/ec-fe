@@ -8,10 +8,6 @@ export class ExpensesList extends React.Component {
         this.renderExpenses = this.renderExpenses.bind(this);
     }
 
-componentWillReceiveProps(){
-  //  console.log('UPDATEEEEEEEEEEEEEE', this.props);
-}
-
     renderExpenses() {
         if(this.props.expenses) {
             let expenses =  Object.values(this.props.expenses).map( (expense) =>{
