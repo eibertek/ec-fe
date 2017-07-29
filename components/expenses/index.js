@@ -26,7 +26,6 @@ class ExpensesComponent extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.renderCategoriesDropdown = this.renderCategoriesDropdown.bind(this);
-        this.props.loadCategories();
     }
 
     gotoAction() {
@@ -105,8 +104,8 @@ class ExpensesComponent extends React.Component {
 
 const mapStateToProps = state=>{
     return {
-        categories: state.categories.categories,
-        expenses: state.expenses.expenses,        
+        categories: state.categories,
+        expenses: state.expenses,        
     }
 }
 

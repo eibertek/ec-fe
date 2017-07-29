@@ -11,7 +11,7 @@ export const getCategories = () => {
 export const loadCategoriesSucess = data => {
   let categories = Array();
   Object.values(data).forEach( (v) => categories.push(v));
-  return {type:'CATEGORIES_SUCCESS', categories: data}
+  return {type:'CATEGORIES_SUCCESS', categories}
 };
 
 export const saveCategory = data => {

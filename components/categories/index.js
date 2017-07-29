@@ -60,7 +60,6 @@ export class Categories extends React.Component {
         }
         this.props.saveCategory(this.state);
         this.props.dismiss(); 
-        this.props.loadCategories();  
     }
 
     handleChange(e){

@@ -85,3 +85,13 @@ BODY {
         right:60px;
     }
 }
+
+.ExpensesList {
+    div.row { 
+        clear:both; 
+        }
+    div.cell {
+        margin:0px 20px;
+        float:left;
+    }
+}

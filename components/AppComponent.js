@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ExpensesComponent from './expenses';
+import ExpensesList from './expenses/ExpensesList.js';
 import Categories from './categories';
 import UserComponent from './users';
 import ModalComponent from './ModalComponent';
@@ -35,7 +36,6 @@ class AppComponent extends React.Component {
         this.login = this.login.bind(this);
         this.getErrors = this.getErrors.bind(this);
         this.onClose = this.onClose.bind(this);
-        this.renderExpenses = this.renderExpenses.bind(this);
         this.props.loadExpenses();
         this.props.loadCategories();
     }
@@ -117,18 +117,7 @@ class AppComponent extends React.Component {
     onClose() {
         this.setState({modal:{ render:false, component:null}});
         this.props.loadExpenses();
-        this.forceUpdate();
     }
-
-    renderExpenses() {
-        if(this.props.expenses) {
-            let expenses = this.props.expenses.map( (expense) =>{
-                return <div key={expense.id}>{expense.name} - {expense.value}</div>
-            });
-            return <div>{expenses}</div>;
-        }
-        return <div>EXPENSES LOADING</div>;
-    }  
 
     loggedIn(){
         return <div>
@@ -152,7 +141,7 @@ class AppComponent extends React.Component {
             </div>
             <ModalComponent render={this.state.modal.render} onClose={this.onClose}>{this.state.modal.component}</ModalComponent>
             <div>EXPENSES</div>
-            <div>{this.renderExpenses()}</div>
+            <ExpensesList expenses={this.props.expenses} />
         </div>;
     }
     render(){
@@ -171,8 +160,8 @@ AppComponent.propTypes = {}
 
 const mapStateToProps = state=>{
     return {
-        categories: state.categories.categories,
-        expenses: state.expenses.expenses,
+        categories: state.categories,
+        expenses: state.expenses,
     }
 }
 

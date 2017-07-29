@@ -8,8 +8,8 @@ export const getExpenses = () => {
    }
 }
 
-export const loadExpensesSucess = data => {
-  return {type:'EXPENSES_SUCCESS', expenses:data}
+export const loadExpensesSucess = expenses => {
+  return {type:'EXPENSES_SUCCESS', expenses}
 };
 
 export const saveExpenses = data => {
